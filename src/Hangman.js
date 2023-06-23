@@ -4,6 +4,11 @@ import './Hangman.css';
 function Hangman() {
   const [randomWord, setRandomWord] = useState('');
   const [guessedLetters, setGuessedLetters] = useState([]);
+  const [showAnswer, setShowAnswer] = useState(false);
+
+  const toggleAnswer = () => {
+    setShowAnswer(!showAnswer);
+  };
 
   useEffect(() => {
     fetch('https://random-word-api.herokuapp.com/word')
@@ -24,6 +29,8 @@ function Hangman() {
   return (
     <div>
       <h1>Hangman Game</h1>
+      <button onClick={toggleAnswer}>Answer</button>
+      {showAnswer && <p>{randomWord}</p>}
       <div className="word-container">
         {randomWord.split('').map((letter, index) => (
           <div key={index} className="letter-container">
