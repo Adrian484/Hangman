@@ -1,8 +1,21 @@
-import React, { useState } from 'react';
-import './Hangman.css';
+import React, { useEffect, useState } from 'react';
+import './Hangman.css'; 
+
 function Hangman() {
-  const [word] = useState('HANGMAN');
+  const [randomWord, setRandomWord] = useState('');
   const [guessedLetters, setGuessedLetters] = useState([]);
+
+  useEffect(() => {
+    fetch('https://random-word-api.herokuapp.com/word')
+      .then(response => response.json())
+      .then(data => {
+        const word = data[0];
+        setRandomWord(word.toUpperCase());
+      })
+      .catch(error => {
+        console.error('Error fetching random word:', error);
+      });
+  }, []);
 
   const handleButtonClick = (letter) => {
     setGuessedLetters([...guessedLetters, letter]);
@@ -11,32 +24,31 @@ function Hangman() {
   return (
     <div>
       <h1>Hangman Game</h1>
-      <div>
+      <div className="word-container">
+        {randomWord.split('').map((letter, index) => (
+          <div key={index} className="letter-container">
+            <span className="letter">
+              {guessedLetters.includes(letter.toUpperCase()) ? letter.toUpperCase() : ''}
+            </span>
+            <span className="underline">
+              {guessedLetters.includes(letter.toUpperCase()) ? '' : '_'}
+            </span>
+          </div>
+        ))}
+      </div>
+      <div className="keyboard">
         {Array.from(Array(26), (_, index) => {
           const letter = String.fromCharCode(65 + index);
           return (
             <button
               key={letter}
               onClick={() => handleButtonClick(letter)}
-              disabled={guessedLetters.includes(letter)}
-              style={{ display: 'inline-block', marginRight: '10px' }}
+              disabled={guessedLetters.includes(letter.toUpperCase())}
             >
               {letter}
             </button>
           );
         })}
-      </div>
-      <div className="word-container">
-        {word.split('').map((letter, index) => (
-          <div key={index} className="letter-container">
-            <span className="letter">
-              {guessedLetters.includes(letter) ? letter : ''}
-            </span>
-            <span className="underline">
-              {guessedLetters.includes(letter) ? '' : '_'}
-            </span>
-          </div>
-        ))}
       </div>
     </div>
   );

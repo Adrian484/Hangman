@@ -5,7 +5,6 @@ code {
 
 .word-container {
   display: flex;
-  justify-content: center;
 }
 
 .letter-container {
@@ -15,8 +14,11 @@ code {
   margin: 0 5px;
 }
 
+.letter {
+  font-size: 24px;
+}
+
 .underline {
-  text-decoration: underline;
-  font-size: 1.5em;
-  border-bottom: 2px solid black; 
+  border-bottom: 2px solid #000;
+  width: 24px;
 }
