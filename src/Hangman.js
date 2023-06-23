@@ -25,19 +25,22 @@ function Hangman() {
   };
 
   useEffect(() => {
-    const randomColor = generateRandomColor();
-    document.documentElement.style.setProperty('--random-background-color', randomColor);
+    generateRandomColor();
   }, []);
 
   const generateRandomColor = () => {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
-    return `rgb(${red}, ${green}, ${blue})`;
+    const color = `rgb(${red}, ${green}, ${blue})`;
+    setBackgroundColor(color);
+  };
+
+  const handleBackgroundColorChange = () => {
+    generateRandomColor();
   };
 
   const handleReset = () => {
-    setBackgroundColor('');
     setGuessCounter(6);
     setGuessedLetters([]);
     setDisabledLetters([]);
@@ -96,9 +99,11 @@ function Hangman() {
   return (
    
     <div style={{ backgroundColor: backgroundColor }}>
+
       <h1>Hangman Game</h1>
       <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
+      <button onClick={handleBackgroundColorChange}>Change Background Color</button>
       {showAnswer && <p>{randomWord}</p>}
       {gameOver && <p>You lose!</p>}
       {!gameOver && guessedLetters.length === [...new Set(randomWord)].length && <p>You win!</p>}
