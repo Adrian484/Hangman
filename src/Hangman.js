@@ -2,13 +2,32 @@ import React, { useEffect, useState } from 'react';
 import './Hangman.css'; 
 
 function Hangman() {
-  const [randomWord, setRandomWord] = useState('');
-  const [guessedLetters, setGuessedLetters] = useState([]);
-  const [showAnswer, setShowAnswer] = useState(false);
+  const [randomWord, setRandomWord] = useState(''); //Random word from API
+  const [guessedLetters, setGuessedLetters] = useState([]); // 
+  const [showAnswer, setShowAnswer] = useState(false);  //// Show Answer Button
+  const [guessCounter, setGuessCounter] = useState(6);
+  const [gameOver, setGameOver] = useState(false);
+  const [disabledLetters, setDisabledLetters] = useState([]);
 
   const toggleAnswer = () => {
     setShowAnswer(!showAnswer);
   };
+
+  const handleButtonClick = (letter) => {
+    if (randomWord.includes(letter)) {
+      setGuessedLetters([...guessedLetters, letter]);
+    } else {
+      setGuessCounter(guessCounter - 1);
+    }
+  
+    setDisabledLetters([...disabledLetters, letter.toUpperCase()]);
+  };
+
+  useEffect(() => {
+    if (guessCounter === 0) {
+      setGameOver(true);
+    }
+  }, [guessCounter]);
 
   useEffect(() => {
     fetch('https://random-word-api.herokuapp.com/word')
@@ -22,15 +41,13 @@ function Hangman() {
       });
   }, []);
 
-  const handleButtonClick = (letter) => {
-    setGuessedLetters([...guessedLetters, letter]);
-  };
-
   return (
     <div>
       <h1>Hangman Game</h1>
       <button onClick={toggleAnswer}>Answer</button>
       {showAnswer && <p>{randomWord}</p>}
+      {gameOver && <p>You lose!</p>}
+      <p>Guesses left: {guessCounter}</p>
       <div className="word-container">
         {randomWord.split('').map((letter, index) => (
           <div key={index} className="letter-container">
@@ -45,12 +62,12 @@ function Hangman() {
       </div>
       <div className="keyboard">
         {Array.from(Array(26), (_, index) => {
-          const letter = String.fromCharCode(65 + index);
+            const letter = String.fromCharCode(65 + index);
           return (
             <button
               key={letter}
               onClick={() => handleButtonClick(letter)}
-              disabled={guessedLetters.includes(letter.toUpperCase())}
+              disabled={disabledLetters.includes(letter.toUpperCase())}
             >
               {letter}
             </button>
