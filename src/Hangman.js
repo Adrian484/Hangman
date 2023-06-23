@@ -57,23 +57,23 @@ function Hangman() {
     if (gameEnded) {
       return;
     }
-  
+
     if (guessedLetters.includes(letter.toUpperCase())) {
       return; // Letter already guessed, do nothing
     }
-  
+
     if (randomWord.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
     } else {
       setGuessCounter(guessCounter - 1);
     }
-  
+
     setDisabledLetters([...disabledLetters, letter.toUpperCase()]);
-  
+
     const uniqueLetters = [...new Set(randomWord.split(''))];
     const remainingLetters = uniqueLetters.filter((char) => !guessedLetters.includes(char));
     const correctGuesses = remainingLetters.length === 1 && remainingLetters[0] === letter.toUpperCase();
-  
+
     if (correctGuesses) {
       setGameEnded(true);
       setWinCount(winCount + 1);
@@ -97,15 +97,13 @@ function Hangman() {
   }, []);
 
   return (
-   
-    <div style={{ backgroundColor: backgroundColor }}>
-
+    <div style={{ backgroundColor }}>
       <h1>Hangman Game</h1>
       <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
       <button onClick={handleBackgroundColorChange}>Change Background Color</button>
       {showAnswer && <p>{randomWord}</p>}
-      {gameOver && <p>You lose!</p>}
+      {gameOver && <p>You lose! The answer was: {randomWord}</p>}
       {!gameOver && guessedLetters.length === [...new Set(randomWord)].length && <p>You win!</p>}
       <p>Guesses left: {guessCounter}</p>
       <p>Win Count: {winCount}</p>
