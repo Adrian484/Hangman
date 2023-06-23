@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Keyboard = ({ letters, disabledLetters, onClick }) => {
-  const handleClick = (letter) => {
+  const handleButtonClick = (letter) => {
     onClick(letter);
   };
 
@@ -10,7 +10,7 @@ const Keyboard = ({ letters, disabledLetters, onClick }) => {
       {letters.map((letter) => (
         <button
           key={letter}
-          onClick={() => handleClick(letter)}
+          onClick={() => handleButtonClick(letter)}
           disabled={disabledLetters.includes(letter)}
         >
           {letter}
