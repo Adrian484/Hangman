@@ -8,6 +8,7 @@ function Hangman() {
   const [guessCounter, setGuessCounter] = useState(6);
   const [gameOver, setGameOver] = useState(false);
   const [disabledLetters, setDisabledLetters] = useState([]);
+  const [gameWon, setGameWon] = useState(false);
 
   const toggleAnswer = () => {
     setShowAnswer(!showAnswer);
@@ -30,6 +31,12 @@ function Hangman() {
   }, [guessCounter]);
 
   useEffect(() => {
+    if (guessedLetters.length === randomWord.length) {
+      setGameWon(true);
+    }
+  }, [guessedLetters, randomWord]);
+
+  useEffect(() => {
     fetch('https://random-word-api.herokuapp.com/word')
       .then(response => response.json())
       .then(data => {
@@ -41,13 +48,15 @@ function Hangman() {
       });
   }, []);
 
+
   return (
     <div>
       <h1>Hangman Game</h1>
       <button onClick={toggleAnswer}>Answer</button>
       {showAnswer && <p>{randomWord}</p>}
       {gameOver && <p>You lose!</p>}
-      <p>Guesses left: {guessCounter}</p>
+      {!gameOver && guessedLetters.length === [...new Set(randomWord)].length && <p>You win!</p>}
+    <p>Guesses left: {guessCounter}</p>
       <div className="word-container">
         {randomWord.split('').map((letter, index) => (
           <div key={index} className="letter-container">
@@ -62,7 +71,7 @@ function Hangman() {
       </div>
       <div className="keyboard">
         {Array.from(Array(26), (_, index) => {
-            const letter = String.fromCharCode(65 + index);
+          const letter = String.fromCharCode(65 + index);
           return (
             <button
               key={letter}
