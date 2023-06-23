@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import './Hangman.css'; 
+import './Hangman.css';
 
 function Hangman() {
-  const [randomWord, setRandomWord] = useState(''); //Random word from API
-  const [guessedLetters, setGuessedLetters] = useState([]); // 
-  const [showAnswer, setShowAnswer] = useState(false);  //// Show Answer Button
+  const [randomWord, setRandomWord] = useState('');
+  const [guessedLetters, setGuessedLetters] = useState([]);
+  const [showAnswer, setShowAnswer] = useState(false);
   const [guessCounter, setGuessCounter] = useState(6);
   const [gameOver, setGameOver] = useState(false);
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
+  const [winCount, setWinCount] = useState(0);
+
+  const fetchRandomWord = () => {
+    fetch('https://random-word-api.herokuapp.com/word')
+      .then(response => response.json())
+      .then(data => {
+        const word = data[0];
+        setRandomWord(word.toUpperCase());
+      })
+      .catch(error => {
+        console.error('Error fetching random word:', error);
+      });
+  };
 
   const handleReset = () => {
-    window.location.reload();
+    setGuessCounter(6);
+    setGuessedLetters([]);
+    setDisabledLetters([]);
+    setGameOver(false);
+    setGameEnded(false);
+    fetchRandomWord();
   };
 
   const toggleAnswer = () => {
@@ -22,6 +40,11 @@ function Hangman() {
     if (gameEnded) {
       return;
     }
+  
+    if (guessedLetters.includes(letter.toUpperCase())) {
+      return; // Letter already guessed, do nothing
+    }
+  
     if (randomWord.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
     } else {
@@ -30,14 +53,20 @@ function Hangman() {
   
     setDisabledLetters([...disabledLetters, letter.toUpperCase()]);
   
-    if (guessedLetters.length + 1 === [...new Set(randomWord)].length) {
+    const uniqueLetters = [...new Set(randomWord.split(''))];
+    const remainingLetters = uniqueLetters.filter((char) => !guessedLetters.includes(char));
+    const correctGuesses = remainingLetters.length === 1 && remainingLetters[0] === letter.toUpperCase();
+  
+    if (correctGuesses) {
       setGameEnded(true);
+      setWinCount(winCount + 1);
     }
   };
 
   useEffect(() => {
     if (guessCounter === 0) {
       setGameEnded(true);
+      setGameOver(true);
     }
   }, [guessCounter]);
 
@@ -47,17 +76,8 @@ function Hangman() {
   }, [guessedLetters, randomWord]);
 
   useEffect(() => {
-    fetch('https://random-word-api.herokuapp.com/word')
-      .then(response => response.json())
-      .then(data => {
-        const word = data[0];
-        setRandomWord(word.toUpperCase());
-      })
-      .catch(error => {
-        console.error('Error fetching random word:', error);
-      });
+    fetchRandomWord();
   }, []);
-
 
   return (
     <div>
@@ -67,7 +87,8 @@ function Hangman() {
       {showAnswer && <p>{randomWord}</p>}
       {gameOver && <p>You lose!</p>}
       {!gameOver && guessedLetters.length === [...new Set(randomWord)].length && <p>You win!</p>}
-    <p>Guesses left: {guessCounter}</p>
+      <p>Guesses left: {guessCounter}</p>
+      <p>Win Count: {winCount}</p>
       <div className="word-container">
         {randomWord.split('').map((letter, index) => (
           <div key={index} className="letter-container">
@@ -99,7 +120,6 @@ function Hangman() {
 }
 
 export default Hangman;
-
 
 
 
