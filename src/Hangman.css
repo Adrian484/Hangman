@@ -1,6 +1,10 @@
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  background-color: grey;
+  font-family:Arial, Helvetica, sans-serif
+}
+
+h1 {
+  text-align: center;
 }
 
 .word-container {
@@ -19,4 +23,35 @@ code {
   text-decoration: underline;
   font-size: 1.5em;
   border-bottom: 2px solid black; 
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* Adjust the number of columns as needed */
+  grid-gap: 5px;
+  align-items: center;
+  justify-items: center;
+  margin-bottom: 10px;
+}
+
+button {
+  margin: 0;
+  padding: 10px;
+  font-size: 16px;
+  /* Add any additional styling as needed */
+}
+
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+button {
+  margin: 0;
+  padding: 10px;
+  font-size: 16px;
+  /* Add any additional styling as needed */
 }
