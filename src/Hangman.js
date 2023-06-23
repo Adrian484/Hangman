@@ -10,6 +10,7 @@ function Hangman() {
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [gameEnded, setGameEnded] = useState(false);
   const [winCount, setWinCount] = useState(0);
+  const [backgroundColor, setBackgroundColor] = useState('');
 
   const fetchRandomWord = () => {
     fetch('https://random-word-api.herokuapp.com/word')
@@ -23,7 +24,20 @@ function Hangman() {
       });
   };
 
+  useEffect(() => {
+    const randomColor = generateRandomColor();
+    document.documentElement.style.setProperty('--random-background-color', randomColor);
+  }, []);
+
+  const generateRandomColor = () => {
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+    return `rgb(${red}, ${green}, ${blue})`;
+  };
+
   const handleReset = () => {
+    setBackgroundColor('');
     setGuessCounter(6);
     setGuessedLetters([]);
     setDisabledLetters([]);
@@ -80,7 +94,8 @@ function Hangman() {
   }, []);
 
   return (
-    <div>
+   
+    <div style={{ backgroundColor: backgroundColor }}>
       <h1>Hangman Game</h1>
       <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
