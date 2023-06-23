@@ -8,8 +8,11 @@ function Hangman() {
   const [guessCounter, setGuessCounter] = useState(6);
   const [gameOver, setGameOver] = useState(false);
   const [disabledLetters, setDisabledLetters] = useState([]);
-
   const [gameEnded, setGameEnded] = useState(false);
+
+  const handleReset = () => {
+    window.location.reload();
+  };
 
   const toggleAnswer = () => {
     setShowAnswer(!showAnswer);
@@ -34,7 +37,6 @@ function Hangman() {
 
   useEffect(() => {
     if (guessCounter === 0) {
-      setGameOver(true);
       setGameEnded(true);
     }
   }, [guessCounter]);
@@ -60,6 +62,7 @@ function Hangman() {
   return (
     <div>
       <h1>Hangman Game</h1>
+      <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
       {showAnswer && <p>{randomWord}</p>}
       {gameOver && <p>You lose!</p>}
