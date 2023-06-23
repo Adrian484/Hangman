@@ -8,13 +8,17 @@ function Hangman() {
   const [guessCounter, setGuessCounter] = useState(6);
   const [gameOver, setGameOver] = useState(false);
   const [disabledLetters, setDisabledLetters] = useState([]);
-  const [gameWon, setGameWon] = useState(false);
+
+  const [gameEnded, setGameEnded] = useState(false);
 
   const toggleAnswer = () => {
     setShowAnswer(!showAnswer);
   };
 
   const handleButtonClick = (letter) => {
+    if (gameEnded) {
+      return;
+    }
     if (randomWord.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
     } else {
@@ -22,17 +26,21 @@ function Hangman() {
     }
   
     setDisabledLetters([...disabledLetters, letter.toUpperCase()]);
+  
+    if (guessedLetters.length + 1 === [...new Set(randomWord)].length) {
+      setGameEnded(true);
+    }
   };
 
   useEffect(() => {
     if (guessCounter === 0) {
       setGameOver(true);
+      setGameEnded(true);
     }
   }, [guessCounter]);
 
   useEffect(() => {
     if (guessedLetters.length === randomWord.length) {
-      setGameWon(true);
     }
   }, [guessedLetters, randomWord]);
 
