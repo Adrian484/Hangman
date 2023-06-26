@@ -108,7 +108,7 @@ function Hangman() {
 
   return (
     <div style={{ backgroundColor }}>
-      <h1>Hangman</h1>
+      <h1>HANGMAN</h1>
       <button onClick={handleNewGame}>New Game</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
@@ -116,7 +116,7 @@ function Hangman() {
       {showAnswer && <p>{randomWord}</p>}
       {gameOver && <p>You lose! The answer was: {randomWord}</p>}
       {!gameOver && guessedLetters.length === [...new Set(randomWord)].length && <p>You win!</p>}
-      <p>Guesses left: {guessCounter}</p>
+      <p>Guesses Left: {guessCounter}</p>
       <p>Win Count: {winCount}</p>
       <div className="word-container">
         {randomWord.split('').map((letter, index) => (
