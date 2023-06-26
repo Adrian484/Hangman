@@ -40,8 +40,18 @@ function Hangman() {
     generateRandomColor();
   };
 
+  const handleNewGame = () => {
+    setGuessCounter(6);
+    setGuessedLetters([]);
+    setDisabledLetters([]);
+    setGameOver(false);
+    setGameEnded(false);
+    fetchRandomWord();
+  };
+
   const handleReset = () => {
     setGuessCounter(6);
+    setWinCount(0);
     setGuessedLetters([]);
     setDisabledLetters([]);
     setGameOver(false);
@@ -99,9 +109,10 @@ function Hangman() {
   return (
     <div style={{ backgroundColor }}>
       <h1>Hangman</h1>
+      <button onClick={handleNewGame}>New Game</button>
       <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
-      <button onClick={handleBackgroundColorChange}>Change Background Color</button>
+      <button onClick={handleBackgroundColorChange}>Change Background Colour</button>
       {showAnswer && <p>{randomWord}</p>}
       {gameOver && <p>You lose! The answer was: {randomWord}</p>}
       {!gameOver && guessedLetters.length === [...new Set(randomWord)].length && <p>You win!</p>}
