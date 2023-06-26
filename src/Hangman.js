@@ -98,7 +98,7 @@ function Hangman() {
 
   return (
     <div style={{ backgroundColor }}>
-      <h1>Hangman Game</h1>
+      <h1>Hangman</h1>
       <button onClick={handleReset}>Reset</button>
       <button onClick={toggleAnswer}>Answer</button>
       <button onClick={handleBackgroundColorChange}>Change Background Color</button>
