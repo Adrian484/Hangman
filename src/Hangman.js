@@ -11,7 +11,7 @@ function Hangman() {
   const [gameEnded, setGameEnded] = useState(false);
   const [winCount, setWinCount] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState('');
-
+  
   const fetchRandomWord = () => {
     fetch('https://random-word-api.herokuapp.com/word')
       .then(response => response.json())

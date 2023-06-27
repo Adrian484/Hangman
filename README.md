@@ -17,7 +17,7 @@ When there was only one letter left to guess, a wrong or right answer would add 
                                                       Features to Add:
 
 Difficulty Modes (Easy, Medium, and Hard):
-The words that are randomly generated are not specified in length. Sometimes the words are 3 letters long, sometimes they are 7, sometimes they are 13. The guess count is fixed for all of them. This means I will have as many guesses for a small word a lot of people know as I would with a medium or long word nobody has heard of. This creates an imbalance in the consistency of the game’s challenge.
+The words that are randomly generated are not specified in length. Sometimes the words are 3 letters long, sometimes they are 7, sometimes they are 15. The guess count is fixed for all of them. This means I will have as many guesses for a small word a lot of people know as I would with a medium or long word nobody has heard of. This creates an imbalance in the consistency of the game’s challenge.
 
 Scaling Guess Count: 
 Along with the difficulty inconsistency for length and complexity of each word, some words use a lot of vowels, and some do not. This means that even the smaller words could be very tricky and some of the longer words could be more realistic for the average person to solve. On top of difficulty modes, I would also need to consider having more guesses available for words that are longer and/or words that use less vowels and are harder to guess. I would need to choose whether to include that in the difficulty modes or not as well.
@@ -44,5 +44,16 @@ The hint mechanic that I would be adding would be to select and add a random let
 7. With the win and lose conditions and buttons working and an easy cheat button so I could test code without restrictions, I decided to then add a "Reset" button which was later changed to "New Game" which would reset the word the buttons, similar to re-loading the page. Once I added a win counter and a random background colour scheme, this button would not affect those, so I could refresh and keep the counter of my wins. It is important to note as well that the win counter is unaffected by losses so if if someone won 2 games, lost 10, no matter what order it happened in, it would display the 2 wins and only the 2 wins.
 
 8. Some last minute touches I have added include a full reset button, that will refresh the entire page and change everything including the win count, I have decided to avoid having the background affected on the click of this button as it would not be necessary. So it's identical to the New Game button except this one will also reset the win count. The game in this state is fully functional, but could definitely use some gameplay balances as it is currently very hard to win and each word length is inconsistent. 
+
+Trivia:
+
+> This fetched API is believed to have 178,000 words to choose from
+In this API, there are certain words with shrimp in it:
+
+"shrimp","shrimped","shrimper","shrimpers","shrimpier","shrimpiest","shrimping","shrimplike","shrimps","shrimpy"
+
+Shrimpier has showed up once when testing by pure coincidence.
+
+> As this is an extremely large database of words, there is a very small chance certain dirty words or swear words will appear, but if it happens, don't say I didn't warn you!
 
 
