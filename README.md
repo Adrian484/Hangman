@@ -2,6 +2,10 @@
                                                 |||||||||| HANGMAN APP ||||||||||
                                                 ||||||||||             ||||||||||
 
+PLAY HERE:
+https://hangman-app.surge.sh/
+
+
 My task for Project 4 was to create React App Game called Hangman. It had to be a fully playable game that will receive an API that is a random word every time. I needed to have display lines for each letter of for the chosen word and have an entire alphabet letter to click on for it. Those buttons then needed to be disabled after being clicked and maybe greyed out or crossed out to demonstrate that they have been clicked. I was required to have six attempts to guess, or the user will lose. This app also required a colour scheme and be user friendly. A visual display such as a message of a win and lose condition on the screen will be are also necessary for functionality. Lastly, A restart button to restart the game afterwards will be necessary as well. A score counter should be displayed to the user as well.
 
                                                             Bugs:
@@ -45,15 +49,17 @@ The hint mechanic that I would be adding would be to select and add a random let
 
 8. Some last minute touches I have added include a full reset button, that will refresh the entire page and change everything including the win count, I have decided to avoid having the background affected on the click of this button as it would not be necessary. So it's identical to the New Game button except this one will also reset the win count. The game in this state is fully functional, but could definitely use some gameplay balances as it is currently very hard to win and each word length is inconsistent. 
 
-Trivia:
+                                                        Trivia:
 
-> This fetched API is believed to have 178,000 words to choose from
+> This fetched API is believed to have 178,000 (178,187) words to choose from
 In this API, there are certain words with shrimp in it:
 
 "shrimp","shrimped","shrimper","shrimpers","shrimpier","shrimpiest","shrimping","shrimplike","shrimps","shrimpy"
 
-Shrimpier has showed up once when testing by pure coincidence.
+Shrimpier has showed up once when testing by pure coincidence!
 
-> As this is an extremely large database of words, there is a very small chance certain dirty words or swear words will appear, but if it happens, don't say I didn't warn you!
+> As this is an extremely large database of words, there is a very small chance certain dirty words or swear words will appear, this hasn't happened to me, but I searched the API database out of curiosity. It's very unlikely but if it happens, don't say I didn't warn you!
+
+
 
 
